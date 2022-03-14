@@ -1,11 +1,15 @@
-import './App.css';
+import './App.css'
+import { UsersContextProvider } from 'context'
+import { UsersList } from 'components'
 
 function App() {
   return (
-    <div className="App">
-      hello world
-    </div>
-  );
+    <UsersContextProvider>
+      <div className="container">
+        <UsersList />
+      </div>
+    </UsersContextProvider>
+  )
 }
 
-export default App;
+export default App

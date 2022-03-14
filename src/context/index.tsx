@@ -1,0 +1,71 @@
+import { createContext, useContext, useEffect, useReducer } from 'react'
+import {
+  UsersAction,
+  UsersState,
+  UsersActionKind,
+  User,
+  UsersContextValue,
+} from 'types'
+
+const UsersContext = createContext({})
+
+function usersReducer(state: UsersState, action: UsersAction) {
+  const { type, payload } = action
+  switch (type) {
+    case UsersActionKind.edit:
+      return state
+    case UsersActionKind.fetchUsers:
+      return payload
+    default:
+      return state
+  }
+}
+
+function EditUserAction(user: User): {
+  type: UsersActionKind
+  payload: User
+} {
+  return { type: UsersActionKind.edit, payload: user }
+}
+
+function fetchUsers(users: UsersState): {
+  type: UsersActionKind
+  payload: UsersState
+} {
+  return {
+    type: UsersActionKind.fetchUsers,
+    payload: users,
+  }
+}
+
+export function useUsers() {
+  return useContext(UsersContext) as UsersContextValue
+}
+
+export function UsersContextProvider({ children }: { children: JSX.Element }) {
+  const [state, dispatch] = useReducer(usersReducer, {})
+  const dataUrl = 'https://randomuser.me/api/?results=20'
+  useEffect(() => {
+    fetch(dataUrl)
+      .then((data) => data.json())
+      .then((data) => {
+        const users: UsersState = data.results.reduce(
+          (map: any, user: User) => {
+            map[user.login.username] = {
+              ...user,
+            }
+            return map
+          },
+          {}
+        )
+        dispatch(fetchUsers(users))
+      })
+  }, [])
+  return (
+    <UsersContext.Provider
+      value={{ state, dispatch, EditUserAction, data: 'hello' }}
+    >
+      {children}
+    </UsersContext.Provider>
+  )
+}
