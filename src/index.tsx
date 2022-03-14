@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { UsersList } from 'components'
+import { UsersList, UserDetails } from 'routes'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,7 +12,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="/" element={<UsersList />} />
-          <Route path="user/:id" element={<UsersList />} />
+          <Route path="user/:id" element={<UserDetails />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
