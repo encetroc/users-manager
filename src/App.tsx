@@ -1,6 +1,5 @@
 import './App.css'
 import { UsersContextProvider } from 'context'
-import { UsersList } from 'components'
 import { Outlet } from 'react-router-dom'
 
 function App() {
