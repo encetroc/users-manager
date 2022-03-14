@@ -3,9 +3,20 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { UsersList } from 'components'
 
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="/" element={<UsersList />} />
+          <Route path="user/:id" element={<UsersList />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

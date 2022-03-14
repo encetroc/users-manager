@@ -4,7 +4,6 @@ export type UsersContextValue = {
   state: UsersState
   dispatch: React.Dispatch<UsersAction>
   EditUserAction: (user: User) => UsersAction
-  data: string
 }
 
 export enum UsersActionKind {

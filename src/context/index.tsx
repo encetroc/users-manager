@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react'
 import {
   UsersAction,
   UsersState,
@@ -44,6 +50,7 @@ export function useUsers() {
 
 export function UsersContextProvider({ children }: { children: JSX.Element }) {
   const [state, dispatch] = useReducer(usersReducer, {})
+  const [loading, setLoading] = useState(true)
   const dataUrl = 'https://randomuser.me/api/?results=20'
   useEffect(() => {
     fetch(dataUrl)
@@ -59,13 +66,12 @@ export function UsersContextProvider({ children }: { children: JSX.Element }) {
           {}
         )
         dispatch(fetchUsers(users))
+        setLoading(false)
       })
   }, [])
   return (
-    <UsersContext.Provider
-      value={{ state, dispatch, EditUserAction, data: 'hello' }}
-    >
-      {children}
+    <UsersContext.Provider value={{ state, dispatch, EditUserAction }}>
+      {!loading && children}
     </UsersContext.Provider>
   )
 }
