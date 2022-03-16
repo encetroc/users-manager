@@ -1,4 +1,7 @@
 .container {
   padding: var(--gutter);
   background-color: var(--darker);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
