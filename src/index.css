@@ -10,6 +10,7 @@
   --gap-small: 5px;
   --field-height: 40px;
   --gutter: 40px;
+  --card-size: 500px;
 }
 
 * {

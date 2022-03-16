@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: var(--gap-big);
+  width: var(--card-size);
 }
 
 .details__backBtn {
@@ -11,4 +12,10 @@
 
 .details__img {
   align-self: center;
+}
+
+@media screen and (max-width: 600px) {
+  .details {
+    width: 100%;
+  }
 }
