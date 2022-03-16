@@ -1,16 +1,35 @@
 import { useUsers } from 'context'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import { User } from 'types'
+import { capitalize } from 'utils'
+import './InfoBlock.css'
 
 type InfoBlockProps = {
-  name: 'name' | 'dob'
-  data: any
+  name: 'name' | 'location' | 'dob'
 }
 
-export function InfoBlock({ name, data }: InfoBlockProps) {
+type UserAttributes =
+  | 'title'
+  | 'first'
+  | 'last'
+  | 'number'
+  | 'name'
+  | 'city'
+  | 'state'
+  | 'country'
+  | 'postcode'
+  | 'latitude'
+  | 'longitude'
+  | 'offset'
+  | 'description'
+  | 'date'
+  | 'age'
+
+export function InfoBlock({ name }: InfoBlockProps) {
   const { state, dispatch, editUserAction } = useUsers()
+  const [edit, setEdit] = useState(false)
   const { id } = useParams()
 
   const user: User | null = useMemo(() => {
@@ -29,7 +48,7 @@ export function InfoBlock({ name, data }: InfoBlockProps) {
     formState: { errors },
   } = useForm<any>({
     defaultValues: {
-      ...data,
+      ...user?.[name],
     },
   })
 
@@ -43,29 +62,43 @@ export function InfoBlock({ name, data }: InfoBlockProps) {
           },
         })
       )
+    setEdit(false)
   }
+
   return (
-    <section>
-      <h2>{name}</h2>
+    <section className="info">
+      <h2 className="info__title">{capitalize(name)}</h2>
       <form
+        className="info__form"
         onSubmit={handleSubmit(save)}
-        style={{ display: 'flex', flexDirection: 'column' }}
       >
         {user &&
-          Object.keys(user[name]).map((key: string) => {
+          Object.entries(user[name]).map(([key, value]: any) => {
             return (
-              <>
-                <label htmlFor={key}>{key}</label>
-                <input
-                  {...register(key, { required: true })}
-                  style={{ backgroundColor: 'black' }}
-                  type="text"
-                  id={key}
-                />
-              </>
+              <div className="info__field">
+                <label className="info__label" htmlFor={key}>
+                  {capitalize(key)}
+                </label>
+                {edit ? (
+                  <input
+                    className="info__input"
+                    {...register(key, { required: true })}
+                    type="text"
+                    id={key}
+                  />
+                ) : (
+                  <div className="info__value">
+                    {value}
+                  </div>
+                )}
+              </div>
             )
           })}
-        <button type="submit">Save</button>
+        <div className="info__action">
+          {edit && <button onClick={() => setEdit(false)}>Cancel</button>}
+          {!edit && <button onClick={() => setEdit(true)}>Edit</button>}
+          {edit && <button type="submit">Save</button>}
+        </div>
       </form>
     </section>
   )

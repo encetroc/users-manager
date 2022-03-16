@@ -1,0 +1,48 @@
+.info {
+  background-color: var(--dark);
+  padding: var(--gap-big);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+  border-radius: var(--border-radius);
+}
+
+.info__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-medium);
+}
+
+.info__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.info__label {
+  font-size: 12px;
+  color: var(--light);
+}
+
+.info__value {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: calc(var(--gap-small) + 1px);
+}
+
+.info__input {
+  border: 1px solid var(--light);
+  background-color: var(--darker);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: var(--gap-small);
+  font-size: 16px;
+}
+
+.info__action {
+  display: flex;
+  gap: var(--gap-medium);
+  justify-content: end;
+}

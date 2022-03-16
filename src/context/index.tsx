@@ -65,6 +65,15 @@ export function UsersContextProvider({ children }: { children: JSX.Element }) {
           (map: any, user: User) => {
             map[user.login.username] = {
               ...user,
+              location: {
+                ...user.location.street,
+                city: user.location.city,
+                state: user.location.state,
+                country: user.location.country,
+                postcode: user.location.postcode,
+                ...user.location.coordinates,
+                ...user.location.timezone,
+              }
             }
             return map
           },
