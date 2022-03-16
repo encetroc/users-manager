@@ -3,7 +3,7 @@ export type UsersState = Record<string, User>
 export type UsersContextValue = {
   state: UsersState
   dispatch: React.Dispatch<UsersAction>
-  EditUserAction: (user: User) => UsersAction
+  editUserAction: (user: User) => UsersAction
 }
 
 export enum UsersActionKind {

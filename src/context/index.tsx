@@ -15,11 +15,16 @@ import {
 
 const UsersContext = createContext({})
 
-function usersReducer(state: UsersState, action: UsersAction) {
-  const { type, payload } = action
+function usersReducer(state: UsersState, action: UsersAction): UsersState {
+  let { type, payload } = action
   switch (type) {
     case UsersActionKind.edit:
-      return state
+      return {
+        ...state,
+        [payload.login.username]: {
+          ...payload,
+        },
+      }
     case UsersActionKind.fetchUsers:
       return payload
     default:
@@ -27,7 +32,7 @@ function usersReducer(state: UsersState, action: UsersAction) {
   }
 }
 
-function EditUserAction(user: User): {
+function editUserAction(user: User): {
   type: UsersActionKind
   payload: User
 } {
@@ -70,7 +75,7 @@ export function UsersContextProvider({ children }: { children: JSX.Element }) {
       })
   }, [])
   return (
-    <UsersContext.Provider value={{ state, dispatch, EditUserAction }}>
+    <UsersContext.Provider value={{ state, dispatch, editUserAction }}>
       {!loading && children}
     </UsersContext.Provider>
   )

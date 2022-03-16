@@ -1,12 +1,13 @@
+import { InfoBlock } from 'components'
 import { useUsers } from 'context'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { User } from 'types'
 import './UserDetails.css'
 
 export function UserDetails() {
-  const { state } = useUsers()
+  const { state, dispatch, editUserAction } = useUsers()
   const { id } = useParams()
 
   const user: User | null = useMemo(() => {
@@ -17,7 +18,7 @@ export function UserDetails() {
     }
   }, [id, state])
 
-  const {
+  /* const {
     register,
     handleSubmit,
     watch,
@@ -28,37 +29,48 @@ export function UserDetails() {
       ...user?.name,
     },
   })
+
+  const save = (data: any) => {
+    user &&
+      dispatch(
+        editUserAction({
+          ...user,
+          name: {
+            ...data,
+          },
+        })
+      )
+  } */
+
   return (
     <>
       {user && (
         <div className="user_details_container">
+          <Link to="/">Users list</Link>
           <img width={128} height={128} src={user.picture.large} alt="avatar" />
-          <section>
+          <InfoBlock name="name" data={user.name} />
+          {/* <section>
             <h2>Name</h2>
-            <form style={{ display: 'flex', flexDirection: 'column' }}>
-              <label htmlFor="title">Title</label>
-              <input
-                {...register('title', { required: true })}
-                style={{ backgroundColor: 'black' }}
-                type="text"
-                id="title"
-              />
-              <label htmlFor="first">First name</label>
-              <input
-                {...register('first', { required: true })}
-                style={{ backgroundColor: 'black' }}
-                type="text"
-                id="first"
-              />
-              <label htmlFor="last">Last Name</label>
-              <input
-                {...register('last', { required: true })}
-                style={{ backgroundColor: 'black' }}
-                type="text"
-                id="last"
-              />
+            <form
+              onSubmit={handleSubmit(save)}
+              style={{ display: 'flex', flexDirection: 'column' }}
+            >
+              {Object.entries(user.name).map((field: any) => {
+                return (
+                  <>
+                    <label htmlFor={field[0]}>{field[0]}</label>
+                    <input
+                      {...register(field[0], { required: true })}
+                      style={{ backgroundColor: 'black' }}
+                      type="text"
+                      id={field[0]}
+                    />
+                  </>
+                )
+              })}
+              <button type="submit">Save</button>
             </form>
-          </section>
+          </section> */}
         </div>
       )}
     </>
