@@ -1,4 +1,4 @@
 .container {
-  padding: 40px;
+  padding: var(--gutter);
   background-color: var(--darker);
 }

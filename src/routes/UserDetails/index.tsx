@@ -22,12 +22,15 @@ export function UserDetails() {
       {user && (
         <div className="details">
           <button className="details__backBtn">
-            <Link to="/">
-              back
-            </Link>
+            <Link to="/">back</Link>
           </button>
-
-          <img width={128} height={128} src={user.picture.large} alt="avatar" />
+          <img
+            className="details__img"
+            width={128}
+            height={128}
+            src={user.picture.large}
+            alt="avatar"
+          />
           <InfoBlock name="name" />
           <InfoBlock name="dob" />
           <InfoBlock name="location" />

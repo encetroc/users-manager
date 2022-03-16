@@ -1,14 +1,14 @@
 .user_info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: var(--gap-medium);
 }
 
 .user_li {
-  padding: 20px;
+  padding: var(--gap-big);
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #403d39;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
 }

@@ -25,7 +25,7 @@
 }
 
 .info__value {
-  height: 40px;
+  height: var(--field-height);
   display: flex;
   align-items: center;
   padding-left: calc(var(--gap-small) + 1px);
@@ -34,7 +34,7 @@
 .info__input {
   border: 1px solid var(--light);
   background-color: var(--darker);
-  height: 40px;
+  height: var(--field-height);
   display: flex;
   align-items: center;
   padding-left: var(--gap-small);
